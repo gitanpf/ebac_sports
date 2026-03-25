@@ -7,14 +7,11 @@ import cesta from '../../assets/cesta.png'
 
 import { paraReal } from '../Produto'
 import { RootReducer } from '../../store'
-import { RootState } from '../../store'
 
-const Header = () => {
-  const itensCarrinho = useSelector(
-    (state: RootReducer) => state.carrinho.itens
-  )
-  const itensFavorito = useSelector((state: RootState) => state.favoritos.itens)
-  const valorTotal = itens.reduce((acc, item) => {
+const Header => {
+  const itensCarrinho = useSelector((state: RootReducer) => state.carrinho.itens)
+  const itensFavoritos = useSelector((state: RootReducer) => state.favoritos.itens)
+  const valorTotal = itensCarrinho.reduce((acc, item) => {
     acc += item.preco
     return acc
   }, 0)
