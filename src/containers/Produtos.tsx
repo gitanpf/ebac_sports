@@ -1,31 +1,24 @@
-import { Produto as ProdutoType } from '../App'
-import Produto from '../components/Produto'
-
+import ProdutoComponent from '../components/Produto'
 import * as S from './styles'
-
-import api from '../services/api'
-
 import { useGetProdutosQuery } from '../services/api'
 
-const Produtos () => {
-  const { data: produtos, isLoading } = useGetProdutosQuery()
+const Produtos = () => {
+  const { data: produtos, isLoading, isError } = useGetProdutosQuery()
 
-  if (isLoading) return <h2>Carregando...</h2>
+  if (isLoading) {
+    return <p>Carregando...</p>
+  }
 
+  if (isError) {
+    return <p>Erro ao carregar produtos</p>
+  }
 
-  
   return (
-    <>
-      <S.Produtos>
-        {produtos?.map((produto) => (
-          <Produto
-            estaNosFavoritos={produtoEstaNosFavoritos(produto)}
-            key={produto.id}
-            produto={produto}
-          />
-        ))}
-      </S.Produtos>
-    </>
+    <S.Container>
+      {produtos?.map((produto) => (
+        <ProdutoComponent key={produto.id} produto={produto} />
+      ))}
+    </S.Container>
   )
 }
 

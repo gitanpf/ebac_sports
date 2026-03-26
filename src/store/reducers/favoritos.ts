@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Produto } from '../../App'
+import { Produto } from '../../types'
 
 type FavoritosState = {
   itens: Produto[]
@@ -13,13 +13,13 @@ const favoritosSlice = createSlice({
   name: 'favoritos',
   initialState,
   reducers: {
-    favoritar: (state, action: PayloadAction<Produto>) => {
-      const produtos = action.payload
+    toggleFavorito: (state, action: PayloadAction<Produto>) => {
+      const produto = action.payload
 
-      const existe = state.itens.find((p) => p.id === produto.id)
+      const existe = state.itens.some((item) => item.id === produto.id)
 
       if (existe) {
-        state.favoritos = state.favoritos.filter((p) => p.id !== produto.id)
+        state.itens = state.itens.filter((item) => item.id !== produto.id)
       } else {
         state.itens.push(produto)
       }
@@ -27,5 +27,5 @@ const favoritosSlice = createSlice({
   }
 })
 
-export const { favoritar } = favoritosSlice.actions
+export const { toggleFavorito } = favoritosSlice.actions
 export default favoritosSlice.reducer

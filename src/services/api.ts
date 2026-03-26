@@ -1,14 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-import { Produtos } from '../App'
+import { Produto } from '../types'
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api-ebac.vercel.app'
   }),
   endpoints: (builder) => ({
-    getProdutos: builder.query<Produtos[], void>({
-      query: () => 'api'
+    getProdutos: builder.query<Produto[], void>({
+      query: () => '/api/ebac_sports'
     })
   })
 })
